@@ -1,0 +1,1 @@
+export { MyArticleListType } from './myArticleListType';
