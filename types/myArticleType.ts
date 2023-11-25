@@ -3,4 +3,5 @@ export type MyArticleType = {
   title: string;
   author: string;
   publishedAt: string;
+  url: string;
 };
