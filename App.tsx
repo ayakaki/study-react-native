@@ -1,54 +1,17 @@
-import axios, { AxiosResponse } from 'axios';
-import { useEffect, useState } from 'react';
-import { FlatList, SafeAreaView, StyleSheet, View } from 'react-native';
-import { ListItem } from './components/ListItem';
-import { API_ENDPOINT } from './constants';
-import { MyArticleListType } from './types';
-import { MyArticleType } from './types/myArticleType';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import * as React from 'react';
+import { ArticleScreen } from './screens/ArticleScreen';
+import { HomeScreen } from './screens/HomeScreen';
 
 export default function App() {
-  const [articleList, setArticleList] = useState<MyArticleType[]>([]);
-
-  const fetchArticleList = async () => {
-    const endpoint = API_ENDPOINT.NEWS;
-    try {
-      const res: AxiosResponse<MyArticleListType> = await axios.get(endpoint);
-      const articleListRes = res.data.articles;
-      setArticleList(articleListRes);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    fetchArticleList();
-  }, []);
-
+  const Stack = createNativeStackNavigator();
   return (
-    <View style={styles.container}>
-      <SafeAreaView>
-        <FlatList
-          data={articleList}
-          renderItem={({ item }) => (
-            <ListItem
-              urlToImage={item.urlToImage}
-              title={item.title}
-              author={item.author}
-              publishedAt={item.publishedAt}
-            />
-          )}
-          keyExtractor={(_, index) => index.toString()}
-        />
-      </SafeAreaView>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Article" component={ArticleScreen} options={{ headerShown: true }} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#fff',
-  },
-  scrollView: {
-    width: '100%',
-  },
-});
