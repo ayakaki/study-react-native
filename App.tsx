@@ -1,17 +1,18 @@
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
-import { ArticleScreen } from './screens/ArticleScreen';
-import { HomeScreen } from './screens/HomeScreen';
+import { ClipScreen } from './screens/ClipScreen';
+import { HomeTab } from './tabs/HomeTab';
 
 export default function App() {
-  const Stack = createNativeStackNavigator();
+  const Tab = createBottomTabNavigator();
+
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Article" component={ArticleScreen} options={{ headerShown: true }} />
-      </Stack.Navigator>
+      <Tab.Navigator>
+        <Tab.Screen name="Home" component={HomeTab} options={{ headerShown: false }} />
+        <Tab.Screen name="Clip" component={ClipScreen} />
+      </Tab.Navigator>
     </NavigationContainer>
   );
 }
