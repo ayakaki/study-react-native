@@ -1,5 +1,6 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet, Text } from 'react-native';
+import { WebView } from 'react-native-webview';
 
 const styles = StyleSheet.create({
   container: {
@@ -12,8 +13,11 @@ export const ArticleScreen = ({ route }) => {
   const routeParams = route.params;
   return (
     <SafeAreaView style={styles.container}>
-      <Text>This is Article Screen</Text>
-      <Text>{routeParams.article.title}</Text>
+      <WebView
+        source={{ uri: routeParams.article.url }}
+        startInLoadingState={true}
+        renderLoading={() => <Text>Loading...</Text>}
+      />
     </SafeAreaView>
   );
 };
